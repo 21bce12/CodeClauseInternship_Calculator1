@@ -1,67 +1,49 @@
 # CodeClauseInternship_Calculator1
-from tkinter import *
-import tkinter as tk
-from tkinter import filedialog
-from pygame import mixer
+def add(num1, num2):
+    return num1 + num2
 
+def subtract(num1, num2):
+    return num1 - num2
 
-class MP:
-    def __init__(self, win):
-        # Create Tkinter window
-        win.geometry('200x200')
-        win.title('Music Player')
-        win.resizable(0, 0)
+def multiply(num1, num2):
+    return num1 * num2
 
-        # StringVar to change button text later
-        self.play_restart = tk.StringVar()
-        self.pause_resume = tk.StringVar()
-        self.play_restart.set('Play')
-        self.pause_resume.set('Pause')
+def divide(num1, num2):
+    if num2 != 0:
+        return num1 / num2
+    else:
+        return "Error: Cannot divide by zero."
 
-        # The buttons and their positions
-        load_button = Button(win, text='Load', width=10, font=('Arial',18), command=self.load)
-        load_button.place(x=100, y=40, anchor='center')
+# Main program loop
+while True:
+    print("Calculator Program")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    print("5. Exit")
 
-        play_button = Button(win, textvariable=self.play_restart, width=10, font=('Arial',18), command=self.play)
-        play_button.place(x=100, y=80, anchor='center')
+    choice = input("Enter your choice (1-5): ")
 
-        pause_button = Button(win, textvariable=self.pause_resume, width=10, font=('Arial',18), command=self.pause)
-        pause_button.place(x=100, y=120, anchor='center')
+    if choice == "5":
+        break
 
-        stop_button = Button(win, text='Stop', width=10, font=('Arial',18), command=self.stop)
-        stop_button.place(x=100, y=160, anchor='center')
+    num1 = float(input("Enter the first number: "))
+    num2 = float(input("Enter the second number: "))
 
-        self.music_file = False
-        self.playing_state = False
+    if choice == "1":
+        result = add(num1, num2)
+        print("Result: ", result)
+    elif choice == "2":
+        result = subtract(num1, num2)
+        print("Result: ", result)
+    elif choice == "3":
+        result = multiply(num1, num2)
+        print("Result: ", result)
+    elif choice == "4":
+        result = divide(num1, num2)
+        print("Result: ", result)
+    else:
+        print("Invalid choice. Please try again.")
 
-    def load(self):
-        self.music_file = filedialog.askopenfilename()
-        print("Loaded: ", self.music_file)
-        self.play_restart.set('Play')
-
-    def play(self):
-        if self.music_file:
-            mixer.init()
-            mixer.music.load(str(self.music_file))
-            mixer.music.play()
-            self.playing_state = False
-            self.play_restart.set('Restart')
-            self.pause_resume.set('Pause')
-
-    def pause(self):
-        if not self.playing_state:
-            mixer.music.pause()
-            self.playing_state = True
-            self.pause_resume.set('Resume')
-        else:
-            mixer.music.unpause()
-            self.playing_state = False
-            self.pause_resume.set('Pause')
-
-    def stop(self):
-        mixer.music.stop()
-
-
-root = Tk()
-MP(root)
-root.mainloop()
+print("Calculator program exited.")
